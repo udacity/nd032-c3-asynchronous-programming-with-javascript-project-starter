@@ -1,4 +1,4 @@
-# Asynchronous Programming with Javascript - Final Project - Crash Cart! The Racing Game
+# RaceSim [Final Project]
 
 ### Exporting
 
