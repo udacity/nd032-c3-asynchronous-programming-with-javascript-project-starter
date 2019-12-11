@@ -8,7 +8,7 @@ To grab the student starter code version, zip and download the `starter` folder.
 
 ### Grading
 
-The solution is complete and previewable in the [solution repository](https://github.com/udacity/nd032-c3-asynchronous-programming-with-javascript).
+The solution is complete and previewable in the [solution folder at https://github.com/udacity/nd032-c3-asynchronous-programming-with-javascript/tree/master/project/solution](https://github.com/udacity/nd032-c3-asynchronous-programming-with-javascript/tree/master/project/solution).
 
 A promise-based solution is provided.
 
