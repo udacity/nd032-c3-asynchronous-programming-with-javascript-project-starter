@@ -1,0 +1,83 @@
+{
+  "tracks": [
+    {
+      "id": 101,
+      "name": "Rose Motorsports Park",
+      "distance": 52
+    },
+    {
+      "id": 202,
+      "name": "Long Beach Speedway",
+      "distance": 100
+    },
+    {
+      "id": 303,
+      "name": "Elephant Dirt Track",
+      "distance": 80
+    }
+  ],
+  "strategies": [
+    {
+      "id": 777,
+      "name": "Ace Driving"
+    },
+    {
+      "id": 101,
+      "name": "Brett Driving"
+    }
+  ],
+  "cars": [
+    {
+      "id": 45,
+      "name": "Dirt Pro"
+    },
+    {
+      "id": 60,
+      "name": "Sprint Car"
+    },
+    {
+      "id": 99,
+      "name": "Road Runner"
+    }
+  ],
+  "drivers": [
+    {
+      "id": 1,
+      "carId": 45,
+      "name": "Acet Driver",
+      "strategyId": 777
+    },
+    {
+      "id": 2,
+      "carId": 45,
+      "name": "Bret Driver",
+      "strategyId": 101
+    },
+    {
+      "id": 3,
+      "carId": 60,
+      "name": "Camn Driver",
+      "strategyId": 777
+    },
+    {
+      "id": 4,
+      "carId": 60,
+      "name": "Dirt Driver",
+      "strategyId": 101
+    },
+    {
+      "id": 5,
+      "carId": 99,
+      "name": "Evyl Driver",
+      "strategyId": 777
+    },
+    {
+      "id": 6,
+      "carId": 99,
+      "name": "Fend Driver",
+      "strategyId": 101
+    }
+  ],
+  "simulations": [],
+  "progressions": []
+}

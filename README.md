@@ -1,51 +1,16 @@
-# README Template
+# Asynchronous Programming with Javascript - Final Project - Crash Cart! The Racing Game
 
-Below is a template provided for use when building your README file for students.
+### Exporting
 
-# Project Title
+Welcome to the repository for the Final Project for _Asynchronous Programming with Javascript_. Click on the [starter folder](/starter) to get started.
 
-Project description goes here.
+To grab the student starter code version, zip and download the `starter` folder.
 
-## Getting Started
+### Grading
 
-Instructions for how to get a copy of the project running on your local machine.
+The solution is complete and previewable in the [solution repository](https://github.com/udacity/nd032-c3-asynchronous-programming-with-javascript).
 
-### Dependencies
+A promise-based solution is provided.
 
-```
-Examples here
-```
+The student may optionally use either promises, async/await, or a combination of both to complete the project. They may also use callbacks, but only if they are lightly used and do not lead to difficult to maintain or read code (ala "callback hell"), as there _are_ legitimate use-cases for light callbacks occasionally.
 
-### Installation
-
-Step by step explanation of how to get a dev environment running.
-
-List out the steps
-
-```
-Give an example here
-```
-
-## Testing
-
-Explain the steps needed to run any automated tests
-
-### Break Down Tests
-
-Explain what each test does and why
-
-```
-Examples here
-```
-
-## Built With
-
-* [Item1](www.item1.com) - Description of item
-* [Item2](www.item2.com) - Description of item
-* [Item3](www.item3.com) - Description of item
-
-Include all items used to build project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md]()
