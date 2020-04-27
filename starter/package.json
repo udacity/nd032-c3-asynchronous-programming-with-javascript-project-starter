@@ -1,0 +1,15 @@
+{
+  "name": "pod_racer_sim",
+  "version": "1.0.0",
+  "description": "Racing simulator for Pod Racers",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/server/index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0"
+  }
+}
