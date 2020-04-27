@@ -1,10 +1,10 @@
-# Welcome to the one and only Podracer Simulation game
+# Welcome to the One and only UdaciRacer Simulation Game
 
 ## Project Introduction
 
-Here is a partially built out game that races podracers - your job is to complete it! Throughout the game logic you will find "TODO" comments that must be completed in order for the game to work. You are going to use the asynchronous skills you gained in the course to fill in the blanks in this game. 
+Here is a partially built-out game that races cars—your job is to complete it! Throughout the game logic, you will find *"TODO"* comments that must be completed in order for the game to work. You are going to use the asynchronous skills you gained in the course to fill in the blanks in this game. 
 
-The game mechanics are this: you select a player and track, the game begins and you accelerate your racer by clicking an acceleration button. As you acclerate so do the other players and the leaderboard live-updates as players change position on the track. The final view is a results page displaying the players rankings. 
+The game mechanics are this: you select a player and track, the game begins and you accelerate your racer by clicking an acceleration button. As you accelerate so do the other players and the leaderboard live-updates as players change position on the track. The final view is a results page displaying the players' rankings. 
 
 The game has three main views:
 
@@ -14,17 +14,17 @@ The game has three main views:
 
 3) The race results view
 
-## This Starter Code
+## Starter Code
 
 We have supplied you with the following:
 
 1) An API. The API is provided in the form of a binary held in the bin folder. You never need to open the binary file, as there are no edits you can make to it. Your work will be 100% in the front end.
 
-2) HTML Views. The focus of this course is not UI development or styling practice, so we have already provided you with peices of UI, all you have to do is call them at the right times. 
+2) HTML Views. The focus of this course is not UI development or styling practice, so we have already provided you with pieces of UI, all you have to do is call them at the right times. 
 
 ## Getting Started
 
-In order to build this game, we need run two things: the game engine API and front end. 
+In order to build this game, we need to run two things: the game engine API and the front end. 
 
 ### Start the Server
 
@@ -38,7 +38,7 @@ To run the server, locate your operating system and run the associated command i
 | Windows  | ```ORIGIN_ALLOWED=http://localhost:3000 ./bin/server.exe```  |
 | Linux (Ubuntu, etc..) | ```ORIGIN_ALLOWED=http://localhost:3000 ./bin/server-linux```|
 
-If you are on an older OS and the above command doesn't run for you - or if you know that you are running a 32bit system - add `-32` to the end of the file name. For reference, here are the same commands but for a 32 bit system.
+If you are on an older OS and the above command doesn't run for you - or if you know that you are running a 32bit system - add `-32` to the end of the file name. For reference, here are the same commands but for a 32-bit system.
 
 | 32 Bit Systems Only!  | Command to start the API |
 | ------------- | ------------- |
@@ -50,13 +50,13 @@ Note that this process will use your terminal tab, so you will have to open a ne
 
 ### Start the Frontend
 
-First, run your preference of `npm install && npm start` or `yarn && yarn start` in the root of this project. Then you should be able to access http://localhost:3000.
+First, run your preference of `npm install && npm start` or `yarn && yarn start` at the root of this project. Then you should be able to access http://localhost:3000.
 
 ## Project Requirements
 
 This starter code base has directions for you in `src/client/assets/javascript/index.js`. There you will be directed to use certain asynchronous methods to achieve tasks. You will know you're making progress as you can play through more and more of the game.
 
-### 1. API Calls
+### API Calls
 
 To complete the project you must first create the calls to the API. These will all be fetch requests, and all information needed to create the request is provided in the instructions. The API calls are all at the bottom of the file: `src/client/assets/javascript/index.js`.
 
@@ -97,7 +97,4 @@ Begin a race
 Accelerate a car
 - Returns nothing
 
-To complete the race logic, find all the TODO tags in index.js and read the instructions. 
-
-
-
+To complete the race logic, find all the TODO tags in index.js and read the instructions.
