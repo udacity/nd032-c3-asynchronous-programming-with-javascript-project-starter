@@ -15,12 +15,12 @@ app.use(bodyParser.json())
 app.use('/', express.static(path.join(__dirname, '../client')))
 
 // API calls ------------------------------------------------------------------------------------
+app.get('/', async (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/pages/home.html'));
+})
 
-// EXAMPLE API CALL
-// app.get('/your-page', async (req, res) => {
-//     res.sendFile(path.join(__dirname, '../client/pages/this-page.html'));
-// })
-
-// Your API Calls here --------
+app.get('/race', async (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/pages/race.html'));
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
