@@ -300,12 +300,12 @@ function raceProgress(positions) {
 function renderAt(element, html) {
 	let node = null
 
-	if (element.match(/^\./).length) {
 		node = document.getElementsByClassName(element)
+	if (element.match(/^\./) != null) {
 	}
 
-	if (element.match(/^#/).length) {
 		node = document.getElementById(element)
+	if (element.match(/^\#/) != null) {
 	}
 
 	node.innerHTML = html
