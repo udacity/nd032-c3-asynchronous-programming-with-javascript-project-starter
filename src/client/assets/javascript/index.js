@@ -88,7 +88,7 @@ async function race() {
 
 	// TODO - Get player_id and track_id from the store
 	
-	const race = // TODO - invoke the API call to create the race, then save the result
+	// TODO - invoke the API call to create the race, then save the result
 
 	// TODO - update the store with the race id
 
