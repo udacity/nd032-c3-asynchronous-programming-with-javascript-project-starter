@@ -182,7 +182,7 @@ function renderRacerCars(racers) {
 		`
 	}
 
-	const results = racers.map(renderRacerCars).join('')
+	const results = racers.map(renderRacerCard).join('')
 
 	return `
 		<ul id="racers">
