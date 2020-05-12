@@ -88,7 +88,7 @@ async function race() {
 
 	// TODO - Get player_id and track_id from the store
 	
-	const race = // TODO - invoke the API call to create the race, then save the result
+	// TODO - invoke the API call to create the race, then save the result
 
 	// TODO - update the store with the race id
 
@@ -98,7 +98,7 @@ async function race() {
 	// TODO - call the async function startRace
 
 	// TODO - call the async function runRace
-
+}
 
 async function runCountdown() {
 	// wait for the DOM to load
@@ -113,7 +113,7 @@ async function runCountdown() {
 
 			// TODO - if the countdown is done, clear the interval, resolve the promise, and return
 
-	}
+	})
 }
 
 async function runRace(raceID) {
@@ -133,7 +133,7 @@ async function runRace(raceID) {
 		renderAt('#race', resultsView(res.positions)) // to render the results view
 		reslove(res) // resolve the promise
 	*/
-	}
+	})
 }
 
 function handleSelectPodRacer(target) {
@@ -182,11 +182,11 @@ function renderRacerCars(racers) {
 		`
 	}
 
-	const results = racers.map(renderRacerCars).join('')
+	const results = racers.map(renderRacerCard).join('')
 
 	return `
 		<ul id="racers">
-			${reuslts}
+			${results}
 		</ul>
 	`
 }
@@ -300,12 +300,12 @@ function raceProgress(positions) {
 function renderAt(element, html) {
 	let node = null
 
-	if (element.match(/^\./).length) {
-		node = document.getElementsByClassName(element)
+	if (element.match(/^\./) != null) {
+		node = document.getElementsByClassName(element.substring(1))
 	}
 
-	if (element.match(/^#/).length) {
-		node = document.getElementById(element)
+	if (element.match(/^\#/) != null) {
+		node = document.getElementById(element.substring(1))
 	}
 
 	node.innerHTML = html
