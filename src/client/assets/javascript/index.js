@@ -98,7 +98,7 @@ async function race() {
 	// TODO - call the async function startRace
 
 	// TODO - call the async function runRace
-
+}
 
 async function runCountdown() {
 	// wait for the DOM to load
@@ -113,7 +113,7 @@ async function runCountdown() {
 
 			// TODO - if the countdown is done, clear the interval, resolve the promise, and return
 
-	}
+	})
 }
 
 async function runRace(raceID) {
@@ -133,7 +133,7 @@ async function runRace(raceID) {
 		renderAt('#race', resultsView(res.positions)) // to render the results view
 		reslove(res) // resolve the promise
 	*/
-	}
+	})
 }
 
 function handleSelectPodRacer(target) {
