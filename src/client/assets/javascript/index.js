@@ -13,26 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	setupClickHandlers()
 })
 
-function updateStore(updates, cb) {
-	store = {
-		...store,
-		...updates,
-	}
-
-	if (cb) {
-		return cb(store)
-	}
-
-	return store
-}
-
 async function onPageLoad() {
-	const page = window.location.href.split('/').pop()
-
-	if (page === 'race') {
-		return
-	}
-
 	getTracks()
 		.then(tracks => {
 			const html = renderTrackCards(tracks)
@@ -65,7 +46,7 @@ function setupClickHandlers() {
 			event.preventDefault()
 	
 			// start race
-			race()
+			handleCreateRace()
 		}
 
 		// Handle acceleration click
@@ -82,13 +63,13 @@ async function delay(ms) {
 // ^ PROVIDED CODE ^ DO NOT REMOVE
 
 // This async function controls the flow of the race
-async function race() {
+async function handleCreateRace() {
 	// render starting UI
 	renderAt('#race', renderRaceStartView())
 
 	// TODO - Get player_id and track_id from the store
 	
-	const race = // TODO - invoke the API call to create the race, then save the result
+	// const race = TODO - invoke the API call to create the race, then save the result
 
 	// TODO - update the store with the race id
 
@@ -98,27 +79,11 @@ async function race() {
 	// TODO - call the async function startRace
 
 	// TODO - call the async function runRace
-
-
-async function runCountdown() {
-	// wait for the DOM to load
-	await delay(1000)
-	let timer = 3
-
-	return new Promise(resolve => {
-		// TODO - use Javascript's built in setInterval method to count down once per second
-		
-			// run this DOM manipulation to decrement the countdown for the user
-			document.getElementById('big-numbers').innerHTML = --timer
-
-			// TODO - if the countdown is done, clear the interval, resolve the promise, and return
-
-	}
 }
 
 async function runRace(raceID) {
 	return new Promise(resolve => {
-	// TODO - use Javascript's built in setInterval method to get race info twice a second
+	// TODO - use Javascript's built in setInterval method to get race info every 500ms
 
 	/* 
 		TODO - if the race info status property is "in-progress", update the leaderboard by calling:
@@ -133,7 +98,23 @@ async function runRace(raceID) {
 		renderAt('#race', resultsView(res.positions)) // to render the results view
 		reslove(res) // resolve the promise
 	*/
-	}
+	})
+}
+
+async function runCountdown() {
+	// wait for the DOM to load
+	await delay(1000)
+	let timer = 3
+
+	return new Promise(resolve => {
+		// TODO - use Javascript's built in setInterval method to count down once per second
+
+		// run this DOM manipulation to decrement the countdown for the user
+		document.getElementById('big-numbers').innerHTML = --timer
+
+		// TODO - if the countdown is done, clear the interval, resolve the promise, and return
+
+	})
 }
 
 function handleSelectPodRacer(target) {
@@ -148,7 +129,7 @@ function handleSelectPodRacer(target) {
 	// add class selected to current target
 	target.classList.add('selected')
 
-	// TODO - save the selected track to the store
+	// TODO - save the selected racer to the store
 }
 
 function handleSelectTrack(target) {
@@ -232,7 +213,7 @@ function renderTrackCard(track) {
 
 function renderCountdown(count) {
 	return `
-		h2>Race Starts In...</h2>
+		<h2>Race Starts In...</h2>
 		<p id="big-numbers">${count}</p>
 	`
 }
@@ -275,11 +256,14 @@ function raceProgress(positions) {
 	let userPlayer = positions.find(e => e.id === store.player_id)
 	userPlayer.driver_name += " (you)"
 
+	positions = positions.sort((a, b) => (a.segment > b.segment) ? -1 : 1)
+	let count = 1
+
 	const results = positions.map(p => {
 		return `
 			<tr>
 				<td>
-					<h3>${p.final_position} - ${p.driver_name}</h3>
+					<h3>${count++} - ${p.driver_name}</h3>
 				</td>
 			</tr>
 		`
@@ -298,15 +282,7 @@ function raceProgress(positions) {
 }
 
 function renderAt(element, html) {
-	let node = null
-
-	if (element.match(/^\./).length) {
-		node = document.getElementsByClassName(element)
-	}
-
-	if (element.match(/^#/).length) {
-		node = document.getElementById(element)
-	}
+	const node = document.querySelector(element)
 
 	node.innerHTML = html
 }
@@ -339,6 +315,8 @@ function getRacers() {
 }
 
 function createRace(player_id, track_id) {
+	player_id = parseInt(player_id)
+	track_id = parseInt(track_id)
 	const body = { player_id, track_id }
 
 	return fetch(`${SERVER}/api/races`, {
