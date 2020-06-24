@@ -172,7 +172,7 @@ function handleAccelerate() {
 // Provided code - do not remove
 
 function renderRacerCars(racers) {
-	if (!tracks.length) {
+	if (!racers.length) {
 		return `
 			<h4>Loading Racers...</4>
 		`
