@@ -2,35 +2,35 @@
   "cars": [
     {
       "id": 1,
-      "driver_name": "Racer 1",
+      "driver_name": "Luffy",
       "top_speed": 650,
       "acceleration": 8,
       "handling": 7
     },
     {
       "id": 2,
-      "driver_name": "Racer 2",
+      "driver_name": "Zoro",
       "top_speed": 600,
       "acceleration": 9,
       "handling": 9
     },
     {
       "id": 3,
-      "driver_name": "Racer 3",
+      "driver_name": "Sanji",
       "top_speed": 500,
       "acceleration": 10,
       "handling": 6
     },
     {
       "id": 4,
-      "driver_name": "Racer 4",
+      "driver_name": "Nami",
       "top_speed": 550,
       "acceleration": 7,
       "handling": 8
     },
     {
       "id": 5,
-      "driver_name": "Racer 5",
+      "driver_name": "Usopp",
       "top_speed": 700,
       "acceleration": 5,
       "handling": 4
@@ -39,7 +39,7 @@
   "tracks": [
     {
       "id": 1,
-      "name": "Track 1",
+      "name": "Alabasta",
       "segments": [
         87,
         47,
@@ -246,7 +246,7 @@
     },
     {
       "id": 2,
-      "name": "Track 2",
+      "name": "Sky Island",
       "segments": [
         37,
         86,
@@ -403,7 +403,7 @@
     },
     {
       "id": 3,
-      "name": "Track 3",
+      "name": "Water 7",
       "segments": [
         15,
         10,
@@ -585,7 +585,7 @@
     },
     {
       "id": 4,
-      "name": "Track 4",
+      "name": "Thriller Bark",
       "segments": [
         9,
         55,
@@ -743,7 +743,7 @@
     },
     {
       "id": 5,
-      "name": "Track 5",
+      "name": "Fishman Island",
       "segments": [
         61,
         5,
@@ -942,7 +942,7 @@
     },
     {
       "id": 6,
-      "name": "Track 6",
+      "name": "Dressrosa",
       "segments": [
         18,
         7,
