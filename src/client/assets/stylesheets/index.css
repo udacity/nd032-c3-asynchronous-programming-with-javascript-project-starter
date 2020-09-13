@@ -21,7 +21,7 @@ body {
 }
 
 header {
-  background-image: url('https://via.placeholder.com/1150');
+  background-image: url('./race.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
