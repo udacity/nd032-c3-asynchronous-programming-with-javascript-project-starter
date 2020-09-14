@@ -14,15 +14,15 @@ document.addEventListener("DOMContentLoaded", function () {
 	setupClickHandlers()
 })
 
-async function onPageLoad() {
+function onPageLoad() {
 	try {
-		await getTracks()
+		getTracks()
 			.then(tracks => {
 				const html = renderTrackCards(tracks)
 				renderAt('#tracks', html)
 			})
 
-		await getRacers()
+		getRacers()
 			.then((racers) => {
 				const html = renderRacerCars(racers)
 				renderAt('#racers', html)
@@ -36,7 +36,7 @@ async function onPageLoad() {
 function setupClickHandlers() {
 	document.addEventListener('click', function (event) {
 		const { target } = event
-
+		console.log('target >>>>> ', target);
 		// Race track form field
 		if (target.matches('.card.track')) {
 			handleSelectTrack(target)
@@ -75,47 +75,59 @@ async function delay(ms) {
 
 // This async function controls the flow of the race, add the logic and error handling
 async function handleCreateRace() {
-	// render starting UI
-	renderAt('#race', renderRaceStartView())
+
 	console.log('store >>>>> ', store);
+
+	const tracks = await getTracks();
+	const track = tracks.find(x => x.id === +(store.track_id))
+
+	// render starting UI
+	renderAt('#race', renderRaceStartView(track))
 	
 	// TODO - Get player_id and track_id from the store
-	const player_id = store.player_id;
+	const player_id = Math.floor((Math.random() * 10000) + 1);
 	const track_id = store.track_id;
 
 	// const race = TODO - invoke the API call to create the race, then save the result
-	const race = await axios.post(`${SERVER}/race`);
+	const race = await createRace(player_id, track_id);
 	console.log(`race >>>>> `, race);
 
 	// TODO - update the store with the race id
+	store.player_id = race.race.player_id;
+	store.track_id = race.race.track_id;
+	store.race_id = race.race.id;
 
 	// The race has been created, now start the countdown
 	// TODO - call the async function runCountdown
+	await runCountdown();
 
 	// TODO - call the async function startRace
+	await startRace(store.race_id);
 
 	// TODO - call the async function runRace
+	await runRace(store.race_id);
 }
 
 function runRace(raceID) {
-	return new Promise(resolve => {
-		// TODO - use Javascript's built in setInterval method to get race info every 500ms
+	try {
+		return new Promise((resolve, reject) => {
+			// TODO - use Javascript's built in setInterval method to get race info every 500ms
+			const raceInterval = setInterval(() => {
+				// TODO - if the race info status property is "in-progress", update the leaderboard by calling:
 
-		/* 
-			TODO - if the race info status property is "in-progress", update the leaderboard by calling:
-	
-			renderAt('#leaderBoard', raceProgress(res.positions))
-		*/
+				renderAt('#leaderBoard', raceProgress(res.positions))
 
-		/* 
-			TODO - if the race info status property is "finished", run the following:
-	
-			clearInterval(raceInterval) // to stop the interval from repeating
-			renderAt('#race', resultsView(res.positions)) // to render the results view
-			reslove(res) // resolve the promise
-		*/
-	})
-	// remember to add error handling for the Promise
+				// TODO - if the race info status property is "finished", run the following:
+
+				clearInterval(raceInterval) // to stop the interval from repeating
+				renderAt('#race', resultsView(res.positions)) // to render the results view
+				reslove(res) // resolve the promise
+			}, 500)
+		})
+		// remember to add error handling for the Promise
+	} catch (error) {
+		console.log(error);
+	}
 }
 
 async function runCountdown() {
@@ -126,12 +138,16 @@ async function runCountdown() {
 
 		return new Promise(resolve => {
 			// TODO - use Javascript's built in setInterval method to count down once per second
+			const countDownInterval = setInterval(() => {
+				// run this DOM manipulation to decrement the countdown for the user
+				document.getElementById('big-numbers').innerHTML = --timer
 
-			// run this DOM manipulation to decrement the countdown for the user
-			document.getElementById('big-numbers').innerHTML = --timer
-
-			// TODO - if the countdown is done, clear the interval, resolve the promise, and return
-
+				// TODO - if the countdown is done, clear the interval, resolve the promise, and return
+				if(timer === 0) {
+					clearInterval(countDownInterval)
+					resolve(timer)
+				}
+			}, 1000)
 		})
 	} catch (error) {
 		console.log(error);
@@ -151,6 +167,7 @@ function handleSelectPodRacer(target) {
 	target.classList.add('selected')
 
 	// TODO - save the selected racer to the store
+	store.race_id = target.id
 }
 
 function handleSelectTrack(target) {
@@ -166,7 +183,7 @@ function handleSelectTrack(target) {
 	target.classList.add('selected')
 
 	// TODO - save the selected track id to the store
-
+	store.track_id = target.id
 }
 
 function handleAccelerate() {
@@ -199,9 +216,9 @@ function renderRacerCard(racer) {
 	return `
 		<li class="card podracer" id="${id}">
 			<h3>${driver_name}</h3>
-			<p>${top_speed}</p>
-			<p>${acceleration}</p>
-			<p>${handling}</p>
+			<p>Top Speed: ${top_speed}</p>
+			<p>Acceleration: ${acceleration}</p>
+			<p>Handling: ${handling}</p>
 		</li>
 	`
 }
@@ -332,8 +349,8 @@ async function getTracks() {
 	} catch (error) {
 		response = error.response
 		console.log(`${response?.config.method} ${response?.config.url} with params ` +
-	`${JSON.stringify(response?.config.params)} returns http status ` +
-	`${response?.status} with response: `, response?.data);
+			`${JSON.stringify(response?.config.params)} returns http status ` +
+			`${response?.status} with response: `, response?.data);
 	}
 	return response.data;
 }
@@ -345,8 +362,8 @@ async function getRacers() {
 	} catch (error) {
 		response = error.response
 		console.log(`${response?.config.method} ${response?.config.url} with params ` +
-		`${JSON.stringify(response?.config.params)} returns http status ` +
-		`${response?.status} with response: `, response?.data);
+			`${JSON.stringify(response?.config.params)} returns http status ` +
+			`${response?.status} with response: `, response?.data);
 	}
 
 	return response.data;
@@ -358,12 +375,12 @@ async function createRace(player_id, track_id) {
 	const body = { player_id, track_id }
 	let response;
 	try {
-		response = await axios.post(`${SERVER}/api/races`, body)
+		response = await axios.post(`${SERVER}/api/races`, body);
 	} catch (error) {
 		response = error.response;
 		console.log(`${response?.config.method} ${response?.config.url} with params ` +
-		`${JSON.stringify(response?.config.params)} returns http status ` +
-		`${response?.status} with response: `, response?.data);
+			`${JSON.stringify(response?.config.params)} returns http status ` +
+			`${response?.status} with response: `, response?.data);
 	}
 	return response.data;
 }
@@ -375,8 +392,8 @@ async function getRace(id) {
 	} catch (error) {
 		response = error.response;
 		console.log(`${response?.config.method} ${response?.config.url} with params ` +
-		`${JSON.stringify(response?.config.params)} returns http status ` +
-		`${response?.status} with response: `, response?.data);
+			`${JSON.stringify(response?.config.params)} returns http status ` +
+			`${response?.status} with response: `, response?.data);
 	}
 	return response.data;
 }
@@ -384,12 +401,12 @@ async function getRace(id) {
 async function startRace(id) {
 	let response;
 	try {
-		return await axios.post(`${SERVER}/api/races/${id}/start`);
+		response = await axios.post(`${SERVER}/api/races/${id}/start`);
 	} catch (error) {
 		response = error.response;
 		console.log(`${response?.config.method} ${response?.config.url} with params ` +
-		`${JSON.stringify(response?.config.params)} returns http status ` +
-		`${response?.status} with response: `, response?.data);
+			`${JSON.stringify(response?.config.params)} returns http status ` +
+			`${response?.status} with response: `, response?.data);
 	}
 	return response.data;
 }
@@ -401,8 +418,8 @@ async function accelerate(id) {
 	} catch (error) {
 		response = error.response;
 		console.log(`${response?.config.method} ${response?.config.url} with params ` +
-		`${JSON.stringify(response?.config.params)} returns http status ` +
-		`${response?.status} with response: `, response?.data);
+			`${JSON.stringify(response?.config.params)} returns http status ` +
+			`${response?.status} with response: `, response?.data);
 	}
 	return response.data;
 }
@@ -414,8 +431,8 @@ async function createRaceTracks() {
 	} catch (error) {
 		response = error.response;
 		console.log(`${response?.config.method} ${response?.config.url} with params ` +
-		`${JSON.stringify(response?.config.params)} returns http status ` +
-		`${response?.status} with response: `, response?.data);
+			`${JSON.stringify(response?.config.params)} returns http status ` +
+			`${response?.status} with response: `, response?.data);
 	}
 	return response.data;
 }
