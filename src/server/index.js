@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
@@ -9,6 +10,14 @@ const port = 3000
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+let race = {
+	id: undefined,
+	track: undefined,
+	player_id: undefined,
+	results: [],
+	positions: [],
+	status: 'UNSTARTED'
+}
 
 // setup the express assets path
 app.use('/', express.static(path.join(__dirname, '../client')))
@@ -32,36 +41,72 @@ app.get('/api/cars', async (req, res) => {
 	res.send(response.cars)
 })
 
+// create a race
 app.post('/api/races', async (req, res) => {
 	try {
-		const cars = require('../../data.json')
-		const response = {
-			id: Math.floor((Math.random() * 100) + 1),
-			track: req.body.track_id,
-			player_id: req.body.player_id,
-			cars,
-			results: ['IN_PROGRESS']
-		}
-		res.send({race: response});
+		const data = require('../../data.json');
+		race.id = Math.floor((Math.random() * 100) + 1);
+		race.track = data.tracks.find(x => x.id === req.body.track_id);
+		race.player_id = req.body.player_id;
+		data.cars.forEach(car => {
+			race.positions.push(car)
+		});
+		race.positions.forEach((position) => {
+			position.final_positions = 0;
+			position.speed = 0;
+			position.segment = 0;
+		})
+		res.send(race);
 	} catch (err) {
-		res.send(400);
+		res.sendStatus(400);
 		console.log('error occured on POST /api/races', err)
 	}
 })
 
 app.get('/api/races/:id', async (req, res) => {
-	// Post races
-	res.send(req)
+	try {
+		if (race.id === +(req.params.id)) {
+			race.positions.forEach((position) => {
+				if (position.id !== race.player_id) {
+					position.segment += 10
+				}
+			});
+			res.send(race);
+		} else {
+			res.sendStatus(404);
+		}
+	} catch (err) {
+		res.sendStatus(400);
+		console.log('error occured on POST /api/races', err)
+	}
 })
 
+// start race
 app.post('/api/races/:id/start', async (req, res) => {
-	// Post races
-	res.send('Race is Started')
+	if (race.id === +(req.params.id)) {
+		race.status = 'IN_PROGRESS'
+		res.sendStatus(200)
+	} else {
+		res.sendStatus(404);
+	}
 })
 
-app.post('/api/races/{id}/accelerate', async (req, res) => {
-	// Post races
-	res.send(req)
+// accelerate 
+app.post('/api/races/:id/accelerate', async (req, res) => {
+	if (race.id === +(req.params.id)) {
+		// get track
+		const player = race.positions.find(p => p.id === race.player_id);
+		console.log(`player >>>> `, player)
+		player.segment += 10
+		const completetion = player.segment / race.track.segments.length;
+		const completionPercentage = completetion * 100
+		if (completionPercentage === 100) {
+			race.status = 'FINISHED'
+		}
+		res.sendStatus(200)
+	} else {
+		res.sendStatus(404);
+	}
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
