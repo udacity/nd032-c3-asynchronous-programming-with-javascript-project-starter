@@ -52,9 +52,7 @@ app.post('/api/races', async (req, res) => {
 			race.positions.push(car)
 		});
 		race.positions.forEach((position) => {
-			position.final_positions = 0;
-			position.speed = 0;
-			position.segment = 0;
+			position.segment = 1;
 		})
 		res.send(race);
 	} catch (err) {
@@ -68,7 +66,13 @@ app.get('/api/races/:id', async (req, res) => {
 		if (race.id === +(req.params.id)) {
 			race.positions.forEach((position) => {
 				if (position.id !== race.player_id) {
-					position.segment += 10
+					position.segment += 1;
+				}
+				const completetion = position.segment / race.track.segments.length;
+				const completionPercentage = Math.round(completetion * 100);
+				console.log(`completionPercentage >>>>> `, completionPercentage);
+				if (completionPercentage === 100) {
+					race.status = 'FINISHED'
 				}
 			});
 			res.send(race);
@@ -96,13 +100,7 @@ app.post('/api/races/:id/accelerate', async (req, res) => {
 	if (race.id === +(req.params.id)) {
 		// get track
 		const player = race.positions.find(p => p.id === race.player_id);
-		console.log(`player >>>> `, player)
-		player.segment += 10
-		const completetion = player.segment / race.track.segments.length;
-		const completionPercentage = completetion * 100
-		if (completionPercentage === 100) {
-			race.status = 'FINISHED'
-		}
+		player.segment += 1;
 		res.sendStatus(200)
 	} else {
 		res.sendStatus(404);
