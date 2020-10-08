@@ -38,3 +38,61 @@ To complete the race logic, find all the TODO tags in index.js and read the inst
 | [POST] | api/races Create a race | id: number track: string player_id: number cars: Cars[] (array of cars in the race) results: Cars[] (array of cars in the position they finished, available if the race is finished) |
 | [POST] | api/races/${id}/start Begin a race | Returns nothing |
 | [POST]  | api/races/${id}/accelerate Accelerate a car | Returns nothing |
+
+
+## Worklog
+
+- [ ] Set up the environment
+- [ ] Test the initial setup
+
+#### [handleCreateRace](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+- [ ] TODO: Get player_id and track_id from the store
+- [ ] TODO: const race = invoke the API call to create the race, then save the result
+- [ ] TODO: update the store with the race id
+- [ ] TODO: call the async function runCountdown
+- [ ] TODO: call the async function startRace
+- [ ] TODO: call the async function runRace
+- [ ] TODO: Make a fetch call (with error handling!) to each of the following API endpoints 
+
+
+#### [runRace](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [ ] TODO: use Javascript's built in setInterval method to get race info every 500ms
+- [ ] TODO: if the race info status property is "in-progress", update the leaderboard by calling: renderAt('#leaderBoard', raceProgress(res.positions))
+- [ ] TODO: if the race info status property is "finished", run the following:
+		clearInterval(raceInterval) // to stop the interval from repeating
+		renderAt('#race', resultsView(res.positions)) // to render the results view
+		reslove(res) // resolve the promise
+    
+#### [runCountdown](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [ ] TODO: use Javascript's built in setInterval method to count down once per second
+- [ ] TODO: if the countdown is done, clear the interval, resolve the promise, and return
+  
+#### [handleSelectTrack](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [ ] TODO: save the selected track id to the store
+
+#### [handleAccelerate](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [ ] TODO: Invoke the API call to accelerate
+
+#### [getTracks](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [ ] TODO: Make a fetch GET request to `${SERVER}/api/tracks`
+- [ ] Reference: createRace(...)
+
+#### [getRacers](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [ ] TODO: Make a fetch GET request to `${SERVER}/api/cars`
+- [ ] Reference: createRace(...)
+
+#### [getRace](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [ ] TODO: Make a fetch GET request to `${SERVER}/api/races${id}`
+- [ ] Reference: createRace(...)
+
+#### [accelerate](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [ ] TODO: Make a fetch POST request to `${SERVER}/api/races/${id}/accelerate`
+- [ ] Reference: startRace(...)
