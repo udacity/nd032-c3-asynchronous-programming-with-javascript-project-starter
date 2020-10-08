@@ -30,11 +30,11 @@ be able to access http://localhost:3000.
 
 To complete the race logic, find all the TODO tags in index.js and read the instructions.
 
-| API Call | Parameters |
-|----------|------------|
-| [GET] api/tracks List of all tracks | id: number (1), name: string ("Executioner"), segments: number[] ([87,47,29,31,78,25,80,76,60,14....]) |
-| [GET] api/cars List of all cars | id: number (3), driver_name: string ("Anakin Skywalker") top_speed: number (500) acceleration: number (10) handling: number (10) |
-| [GET] api/races/${id} Information about a single race | status: RaceStatus ("unstarted" | "in-progress" | "finished") positions object[] ([{ car: object, final_position: number (omitted if empty), speed: number, segment: number}])  |
-| [POST] api/races Create a race | id: number track: string player_id: number cars: Cars[] (array of cars in the race) results: Cars[] (array of cars in the position they finished, available if the race is finished) |
-| [POST] api/races/${id}/start Begin a race | Returns nothing |
-| [POST]  api/races/${id}/accelerate Accelerate a car | Returns nothing |
+| HTTP Verb | API Call | Parameters |
+|-----------|----------|------------|
+| [GET] | api/tracks List of all tracks | id: number (1), name: string ("Executioner"), segments: number[] ([87,47,29,31,78,25,80,76,60,14....]) |
+| [GET] | api/cars List of all cars | id: number (3), driver_name: string ("Anakin Skywalker") top_speed: number (500) acceleration: number (10) handling: number (10) |
+| [GET] | api/races/${id} Information about a single race | status: RaceStatus ("unstarted" | "in-progress" | "finished") positions object[] ([{ car: object, final_position: number (omitted if empty), speed: number, segment: number}])  |
+| [POST] | api/races Create a race | id: number track: string player_id: number cars: Cars[] (array of cars in the race) results: Cars[] (array of cars in the position they finished, available if the race is finished) |
+| [POST] | api/races/${id}/start Begin a race | Returns nothing |
+| [POST]  | api/races/${id}/accelerate Accelerate a car | Returns nothing |
