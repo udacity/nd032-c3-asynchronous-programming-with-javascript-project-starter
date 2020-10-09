@@ -81,7 +81,7 @@ To get the API working do the following (assumes Linux):
 - [x] Server Dockerfile
 
 ```
-FROM debian:buster-slim
+FROM alpine
 
 WORKDIR /tmp
 EXPOSE 8000
@@ -92,8 +92,8 @@ CMD [ "./bin/server-linux"]
 ```
 
 Run the container as follows:
-* Application Port: 8080
-* Server Port: 8000
+* Application Port: __8080__
+* Server Port: __8000__
 ```
 docker run --rm -d -p 8080:8080 -p 8000:8000 udacity-server
 ```
