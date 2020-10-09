@@ -40,6 +40,40 @@ To complete the race logic, find all the TODO tags in index.js and read the inst
 | [POST]  | api/races/${id}/accelerate Accelerate a car | Returns nothing |
 
 
+To get the API working do the following (assumes Linux):
+
+* Run the server in a terminal
+  ```
+  ORIGIN_ALLOWED=http://localhost:3000 ./bin/server-linux
+  ```
+* Test access using Curl or Postman
+* Open a new terminal
+* Test GET tracks i.e. api/tracks
+  ```
+  curl http://localhost:8000/api/tracks
+  ```
+- [x] Test GET tracks i.e. api/cars
+  ```
+  curl http://localhost:8000/api/cars
+  ```
+- [x] Test GET tracks i.e. api/races/${id}
+  ```
+  curl http://localhost:8000/api/races/1
+  ```
+- [x] Test POST tracks i.e. api/races
+  ```
+  curl http://localhost:8000/api/races
+  ```
+- [x] Test POST tracks i.e. api/races/${id}/start
+  ```
+  curl http://localhost:8000/api/races/${id}/start
+  ```
+- [x] Test POST tracks i.e. api/races/${id}/accelerate
+  ```
+  curl http://localhost:8000/api/races/${id}/accelerate
+  ```
+   
+
 ## Worklog
 
 - [ ] Set up the environment
