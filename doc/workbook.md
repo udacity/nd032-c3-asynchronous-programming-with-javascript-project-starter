@@ -110,14 +110,15 @@ curl http://localhost:8000/api/cars
 
 #### Task 1. [getRacers](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
 
-- [ ] TODO: Make a fetch GET request to `${SERVER}/api/cars`
-- [ ] Reference: createRace(...)
+- [x] TODO: Make a fetch GET request to `${SERVER}/api/cars`
+- [x] Reference: createRace(...)
+- [x] Fix: function renderRacerCar typo ${results} variable
 
 
 #### Task 2. [getTracks](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
 
-- [ ] TODO: Make a fetch GET request to `${SERVER}/api/tracks`
-- [ ] Reference: createRace(...)
+- [x] TODO: Make a fetch GET request to `${SERVER}/api/tracks`
+- [x] Reference: createRace(...)
 
 
 #### Task 3. [handleSelectTrack](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
