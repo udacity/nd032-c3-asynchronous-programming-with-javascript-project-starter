@@ -91,6 +91,11 @@ ENV ORIGIN_ALLOWED="http://localhost:8080"
 CMD [ "./bin/server-linux"]
 ```
 
+Build the image
+```
+docker build -t udacity-server .
+```
+
 Run the container as follows:
 * Application Port: __8080__
 * Server Port: __8000__
