@@ -40,12 +40,97 @@ To complete the race logic, find all the TODO tags in index.js and read the inst
 | [POST]  | api/races/${id}/accelerate Accelerate a car | Returns nothing |
 
 
+To get the API working do the following (assumes Linux):
+
+* Run the server in a terminal
+  ```
+  ORIGIN_ALLOWED=http://localhost:3000 ./bin/server-linux
+  ```
+* Test access using Curl or Postman
+* Open a new terminal
+* Test GET tracks i.e. api/tracks
+  ```
+  curl http://localhost:8000/api/tracks
+  ```
+- [x] Test GET tracks i.e. api/cars
+  ```
+  curl http://localhost:8000/api/cars
+  ```
+- [x] Test GET tracks i.e. api/races/${id}
+  ```
+  curl http://localhost:8000/api/races/1
+  ```
+- [x] Test POST tracks i.e. api/races
+  ```
+  curl http://localhost:8000/api/races
+  ```
+- [x] Test POST tracks i.e. api/races/${id}/start
+  ```
+  curl http://localhost:8000/api/races/${id}/start
+  ```
+- [x] Test POST tracks i.e. api/races/${id}/accelerate
+  ```
+  curl http://localhost:8000/api/races/${id}/accelerate
+  ```
+   
+
 ## Worklog
 
-- [ ] Set up the environment
-- [ ] Test the initial setup
+- [x] Set up the environment
+- [x] Test the initial setup
+- [x] Server Dockerfile
 
-#### [handleCreateRace](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+```
+FROM alpine
+
+WORKDIR /tmp
+EXPOSE 8000
+COPY bin/server-linux ./bin/server-linux
+COPY data.json .
+ENV ORIGIN_ALLOWED="http://localhost:8080"
+CMD [ "./bin/server-linux"]
+```
+
+Build the image
+```
+docker build -t udacity-server .
+```
+
+Run the container as follows:
+* Application Port: __8080__
+* Server Port: __8000__
+```
+docker run --rm -d -p 8080:8080 -p 8000:8000 udacity-server
+```
+
+* Test the Server
+```
+curl http://localhost:8000/api/cars
+```
+
+#### Task 1. [getRacers](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [x] TODO: Make a fetch GET request to `${SERVER}/api/cars`
+- [x] Reference: createRace(...)
+- [x] Fix: function renderRacerCar typo ${results} variable
+
+
+#### Task 2. [getTracks](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [x] TODO: Make a fetch GET request to `${SERVER}/api/tracks`
+- [x] Reference: createRace(...)
+
+
+#### Task 3. [handleSelectTrack](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [ ] TODO: save the selected track id to the store
+
+#### Task 4. [getRace](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [ ] TODO: Make a fetch GET request to `${SERVER}/api/races${id}`
+- [ ] Reference: createRace(...)
+
+#### Task 5. [handleCreateRace](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
 - [ ] TODO: Get player_id and track_id from the store
 - [ ] TODO: const race = invoke the API call to create the race, then save the result
 - [ ] TODO: update the store with the race id
@@ -54,8 +139,7 @@ To complete the race logic, find all the TODO tags in index.js and read the inst
 - [ ] TODO: call the async function runRace
 - [ ] TODO: Make a fetch call (with error handling!) to each of the following API endpoints 
 
-
-#### [runRace](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+#### Task 6. [runRace](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
 
 - [ ] TODO: use Javascript's built in setInterval method to get race info every 500ms
 - [ ] TODO: if the race info status property is "in-progress", update the leaderboard by calling: renderAt('#leaderBoard', raceProgress(res.positions))
@@ -63,36 +147,19 @@ To complete the race logic, find all the TODO tags in index.js and read the inst
 		clearInterval(raceInterval) // to stop the interval from repeating
 		renderAt('#race', resultsView(res.positions)) // to render the results view
 		reslove(res) // resolve the promise
-    
-#### [runCountdown](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+#### Task 7.[handleAccelerate](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [ ] TODO: Invoke the API call to accelerate
+
+#### Task 8. [accelerate](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
+
+- [ ] TODO: Make a fetch POST request to `${SERVER}/api/races/${id}/accelerate`
+- [ ] Reference: startRace(...)
+
+
+#### Task 9. [runCountdown](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
 
 - [ ] TODO: use Javascript's built in setInterval method to count down once per second
 - [ ] TODO: if the countdown is done, clear the interval, resolve the promise, and return
   
-#### [handleSelectTrack](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
-
-- [ ] TODO: save the selected track id to the store
-
-#### [handleAccelerate](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
-
-- [ ] TODO: Invoke the API call to accelerate
-
-#### [getTracks](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
-
-- [ ] TODO: Make a fetch GET request to `${SERVER}/api/tracks`
-- [ ] Reference: createRace(...)
-
-#### [getRacers](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
-
-- [ ] TODO: Make a fetch GET request to `${SERVER}/api/cars`
-- [ ] Reference: createRace(...)
-
-#### [getRace](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
-
-- [ ] TODO: Make a fetch GET request to `${SERVER}/api/races${id}`
-- [ ] Reference: createRace(...)
-
-#### [accelerate](https://github.com/rosera/nd032-c3-asynchronous-programming-with-javascript-project-starter/blob/graduation/src/client/assets/javascript/index.js)
-
-- [ ] TODO: Make a fetch POST request to `${SERVER}/api/races/${id}/accelerate`
-- [ ] Reference: startRace(...)
