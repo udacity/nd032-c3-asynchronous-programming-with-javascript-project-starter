@@ -162,4 +162,5 @@ curl http://localhost:8000/api/cars
 
 - [ ] TODO: use Javascript's built in setInterval method to count down once per second
 - [ ] TODO: if the countdown is done, clear the interval, resolve the promise, and return
-  
+
+Exmaple: [countdown timer for race duration](https://itnext.io/how-to-create-an-animated-countdown-timer-with-html-css-and-javascript-d0171d1fb6f7)
