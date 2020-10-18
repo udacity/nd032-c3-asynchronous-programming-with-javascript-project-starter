@@ -104,12 +104,11 @@ async function handleCreateRace() {
 	  // call the async function runCountdown
     await runCountdown()
 
-    console.log(`Race ID: ${store.race_id}, ${race.ID}`);
 	  // Call the async function startRace
     await startRace(store.race_id);
 
-	  // Call the async function runRace
-    await runRace(store.race_id);
+	  // Call the function runRace
+    runRace(store.race_id);
 
   } catch (error) {
     console.log(`handleCreateRace Error: ${error}`);
@@ -117,29 +116,32 @@ async function handleCreateRace() {
 }
 
 function runRace(raceID) {
-	return new Promise(resolve => {
-    // use Javascript's built in setInterval method to get race info every 500ms
-    const raceInterval = setInterval(async() => {
+  try {
+  	return new Promise(resolve => {
+      // use Javascript's built in setInterval method to get race info every 500ms
+      const raceInterval = setInterval(async() => {
 	
-      try {
-        let res = await getRace(raceID);
-        if (res.status === 'in-progress'){
-	        // If the race info status property is "in-progress", update the leaderboard by calling:
-  		    renderAt('#leaderBoard', raceProgress(res.positions));
-        } else {
-		      // If the race info status property is "finished", run the following:
-  		    clearInterval(raceInterval); // to stop the interval from repeating
-	  	    renderAt('#race', resultsView(res.positions)); // to render the results view
-  		    resolve(res); // resolve the promise
+        try {
+          let res = await getRace(raceID);
+          if (res.status === 'in-progress'){
+  	        // If the race info status property is "in-progress", update the leaderboard by calling:
+    		    renderAt('#leaderBoard', raceProgress(res.positions));
+          } else {
+	  	      // If the race info status property is "finished", run the following:
+  	  	    clearInterval(raceInterval); // to stop the interval from repeating
+  	  	    renderAt('#race', resultsView(res.positions)); // to render the results view
+    		    resolve(res); // resolve the promise
+          }
+        } catch (error){
+          console.log(`runRace error: ${error}`);
         }
-      } catch (error){
-        console.log(`runRace error: ${error}`);
-      }
 
-	  }, 500);
-
-	})
-	// remember to add error handling for the Promise
+	    }, 500);
+	  })
+  } catch(error) {
+	  // remember to add error handling for the Promise
+    console.log(`runRace error: ${error}`);
+  }
 }
 
 async function runCountdown() {
@@ -163,7 +165,7 @@ async function runCountdown() {
       }, 1000)
 		})
 	} catch(error) {
-		console.log(error);
+		console.log(`runCountdown error: ${error}`);
 	}
 }
 
@@ -237,6 +239,7 @@ function renderRacerCard(racer) {
 	return `
 		<li class="card podracer" id="${id}">
 			<h3>${driver_name}</h3>
+      <img src="/assets/images/driver-shadow.jpg" alt="Driver Profile">
 			<p>${top_speed}</p>
 			<p>${acceleration}</p>
 			<p>${handling}</p>
@@ -266,6 +269,7 @@ function renderTrackCard(track) {
 	return `
 		<li id="${id}" class="card track">
 			<h3>${name}</h3>
+      <img src="/assets/images/${id}.jpg" alt="Track Profile">
 		</li>
 	`
 }
@@ -401,6 +405,7 @@ function createRace(player_id, track_id) {
 function getRace(id) {
 	// GET request to `${SERVER}/api/races/${id}`
 
+  // Bug in JSON?
   let raceID = parseInt(id) - 1;
 	return fetch(`${SERVER}/api/races/${raceID}`, {
 		method: 'GET',
@@ -414,7 +419,6 @@ function startRace(id) {
   try {
     // Bug in JSON?
     let raceID = parseInt(id) - 1;
-    //let raceID = parseInt(id);
   	return fetch(`${SERVER}/api/races/${raceID}/start`, {
 	  	method: 'POST',
   		...defaultFetchOpts(),

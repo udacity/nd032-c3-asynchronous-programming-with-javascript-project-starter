@@ -2,7 +2,8 @@
 
 /* -------------------  MOBILE  --------------------- */
 header {
-  background-image: url('https://via.placeholder.com/1150');
+  /* background-image: url('https://via.placeholder.com/1150'); */
+  background-image: url('/assets/images/jchng-unsplash.jpg');
 }
 
 main#two-columns {
