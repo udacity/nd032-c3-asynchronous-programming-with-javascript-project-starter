@@ -332,11 +332,12 @@ function raceProgress(positions) {
 		`
 	})
 
+  // Review: Add join statement to Leaderboard output
 	return `
 		<main>
 			<h3>Leaderboard</h3>
 			<section id="leaderBoard">
-				${results}
+				${results.join("")}
 			</section>
 		</main>
 	`
@@ -406,7 +407,8 @@ function getRace(id) {
 	// GET request to `${SERVER}/api/races/${id}`
 
   // Bug in JSON?
-  let raceID = parseInt(id) - 1;
+  // Review: Use a const
+  const raceID = parseInt(id) - 1;
 	return fetch(`${SERVER}/api/races/${raceID}`, {
 		method: 'GET',
 		...defaultFetchOpts()
@@ -418,7 +420,8 @@ function getRace(id) {
 function startRace(id) {
   try {
     // Bug in JSON?
-    let raceID = parseInt(id) - 1;
+    // Review: Use a const
+    const raceID = parseInt(id) - 1;
   	return fetch(`${SERVER}/api/races/${raceID}/start`, {
 	  	method: 'POST',
   		...defaultFetchOpts(),
@@ -434,7 +437,8 @@ function accelerate(id) {
 	// POST request to `${SERVER}/api/races/${id}/accelerate`
 	// options parameter provided as defaultFetchOpts
 	// no body or datatype needed for this request
-  let raceID = parseInt(id) - 1;
+  // Review: Use a const
+  const raceID = parseInt(id) - 1;
 	return fetch(`${SERVER}/api/races/${raceID}/accelerate`, {
 		method: 'POST',
 		...defaultFetchOpts(),
