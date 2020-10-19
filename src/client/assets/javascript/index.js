@@ -240,9 +240,10 @@ function renderRacerCard(racer) {
 		<li class="card podracer" id="${id}">
 			<h3>${driver_name}</h3>
       <img src="/assets/images/driver-shadow.jpg" alt="Driver Profile">
-			<p>${top_speed}</p>
-			<p>${acceleration}</p>
-			<p>${handling}</p>
+      <h3></h3>
+			<p>Top Speed: ${top_speed}</p>
+			<p>Acceleration: ${acceleration}</p>
+			<p>Handling: ${handling}</p>
 		</li>
 	`
 }
