@@ -238,12 +238,20 @@ function renderRacerCard(racer) {
 
 	return `
 		<li class="card podracer" id="${id}">
-			<h3>${driver_name}</h3>
-      <img src="/assets/images/driver-shadow.jpg" alt="Driver Profile">
-      <h3></h3>
-			<p>Top Speed: ${top_speed}</p>
-			<p>Acceleration: ${acceleration}</p>
-			<p>Handling: ${handling}</p>
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+			      <h3>${driver_name}</h3>
+            <img src="/assets/images/driver-shadow.jpg" alt="Driver Profile">
+          </div>
+          <div class="flip-card-back">
+			      <h3>${driver_name}</h3>
+			      <p>Top Speed: ${top_speed}</p>
+			      <p>Acceleration: ${acceleration}</p>
+			      <p>Handling: ${handling}</p>
+          </div>
+        </div>
+      </div>
 		</li>
 	`
 }
@@ -265,12 +273,22 @@ function renderTrackCards(tracks) {
 }
 
 function renderTrackCard(track) {
-	const { id, name } = track
+	const { id, name, segments } = track
 
 	return `
 		<li id="${id}" class="card track">
-			<h3>${name}</h3>
-      <img src="/assets/images/${id}.jpg" alt="Track Profile">
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+			      <h3>${name}</h3>
+            <img src="/assets/images/${id}.jpg" alt="Track Profile">
+          </div>  
+          <div class="flip-card-back">
+			      <h3>${name}</h3>
+            <p>Segments: ${segments.length}</p>
+          </div>
+        </div>
+      </div>
 		</li>
 	`
 }
