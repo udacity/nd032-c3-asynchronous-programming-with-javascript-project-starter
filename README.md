@@ -48,6 +48,15 @@ If you are on an older OS and the above command doesn't run for you - or if you 
 
 Note that this process will use your terminal tab, so you will have to open a new tab and navigate back to the project root to start the front end.
 
+#### WINDOWS USERS -- Setting Environment Variables
+If you are using a windows machine:
+1. `cd` into the root of the project containing data.json 
+2. Run the following command to add the environment variable:
+```set DATA_FILE=./data.json```
+
+If you still run into issues running the API server on your machine, you can run this project in the Udacity classroom.
+
+
 ### Start the Frontend
 
 First, run your preference of `npm install && npm start` or `yarn && yarn start` at the root of this project. Then you should be able to access http://localhost:3000.
