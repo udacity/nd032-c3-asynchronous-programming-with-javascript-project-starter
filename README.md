@@ -38,14 +38,6 @@ To run the server, locate your operating system and run the associated command i
 | Windows               | `ORIGIN_ALLOWED=http://localhost:3000 ./bin/server.exe`   |
 | Linux (Ubuntu, etc..) | `ORIGIN_ALLOWED=http://localhost:3000 ./bin/server-linux` |
 
-If you are on an older OS and the above command doesn't run for you - or if you know that you are running a 32bit system - add `-32` to the end of the file name. For reference, here are the same commands but for a 32-bit system.
-
-| 32 Bit Systems Only!  | Command to start the API                                     |
-| --------------------- | ------------------------------------------------------------ |
-| Mac                   | `ORIGIN_ALLOWED=http://localhost:3000 ./bin/server-osx-32`   |
-| Windows               | `ORIGIN_ALLOWED=http://localhost:3000 ./bin/server-32.exe`   |
-| Linux (Ubuntu, etc..) | `ORIGIN_ALLOWED=http://localhost:3000 ./bin/server-linux-32` |
-
 Note that this process will use your terminal tab, so you will have to open a new tab and navigate back to the project root to start the front end.
 
 #### WINDOWS USERS -- Setting Environment Variables
