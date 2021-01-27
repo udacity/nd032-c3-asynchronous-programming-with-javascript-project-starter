@@ -56,7 +56,7 @@ function setupClickHandlers() {
 
 		// Handle acceleration click
 		if (target.matches('#gas-peddle')) {
-			handleAccelerate(target)
+			handleAccelerate()
 		}
 
 	}, false)
