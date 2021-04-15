@@ -82,7 +82,8 @@ async function handleCreateRace() {
 	// const race = TODO - invoke the API call to create the race, then save the result
 
 	// TODO - update the store with the race id
-
+	// For the API to work properly, the race id should be race id - 1
+	
 	// The race has been created, now start the countdown
 	// TODO - call the async function runCountdown
 
