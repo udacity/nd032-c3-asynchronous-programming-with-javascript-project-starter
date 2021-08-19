@@ -13,16 +13,21 @@ document.addEventListener("DOMContentLoaded", function() {
 	setupClickHandlers()
 })
 
+// This function executes once the page has finished loading.
+// It calls getTracks and getRacers and then renders tracks and racers on the page.
 async function onPageLoad() {
 	try {
 		getTracks()
 			.then(tracks => {
+				console.log(tracks)
 				const html = renderTrackCards(tracks)
 				renderAt('#tracks', html)
+				console.log(tracks)
 			})
 
 		getRacers()
 			.then((racers) => {
+				console.log(racers);
 				const html = renderRacerCars(racers)
 				renderAt('#racers', html)
 			})
@@ -75,7 +80,7 @@ async function delay(ms) {
 // This async function controls the flow of the race, add the logic and error handling
 async function handleCreateRace() {
 	// render starting UI
-	renderAt('#race', renderRaceStartView())
+	renderAt('#race', renderRaceStartView()); // add track name and racers arguments
 
 	// TODO - Get player_id and track_id from the store
 	
@@ -160,7 +165,7 @@ function handleSelectTrack(target) {
 	target.classList.add('selected')
 
 	// TODO - save the selected track id to the store
-	
+	store.track_id = target.id;
 }
 
 function handleAccelerate() {
@@ -179,10 +184,9 @@ function renderRacerCars(racers) {
 	}
 
 	const results = racers.map(renderRacerCard).join('')
-
 	return `
 		<ul id="racers">
-			${reuslts}
+			${results}
 		</ul>
 	`
 }
@@ -319,14 +323,32 @@ function defaultFetchOpts() {
 
 // TODO - Make a fetch call (with error handling!) to each of the following API endpoints 
 
+// DONE
 function getTracks() {
-	// GET request to `${SERVER}/api/tracks`
+	console.log('getTracks was called.');
+	try {
+		const trackData = fetch(`${SERVER}/api/tracks`)
+		.then(res => res.json())
+		return trackData;
+	} catch(error) {
+		console.log(`getTracks Error: ${error}`);
+	}
+
 }
 
+// DONE
 function getRacers() {
-	// GET request to `${SERVER}/api/cars`
+	console.log('getRacers was called.');
+	try {
+		const racerData = fetch(`${SERVER}/api/cars`)
+			.then(res => res.json())
+		return racerData;
+	} catch (error) {
+		console.log(`getRacers Error: ${error}`);
+	}
 }
 
+// ?? Where does this ever get called?
 function createRace(player_id, track_id) {
 	player_id = parseInt(player_id)
 	track_id = parseInt(track_id)
@@ -342,8 +364,16 @@ function createRace(player_id, track_id) {
 	.catch(err => console.log("Problem with createRace request::", err))
 }
 
+// Where does this get called?
 function getRace(id) {
 	// GET request to `${SERVER}/api/races/${id}`
+	try {
+		const race = fetch(`${SERVER}/api/races/${id}`)
+		.then(res => res.json())
+		.then(data => console.log(data))
+	} catch(error) {
+		console.log(error);
+	}
 }
 
 function startRace(id) {
