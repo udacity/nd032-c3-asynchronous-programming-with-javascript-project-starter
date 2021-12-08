@@ -97,38 +97,69 @@ async function handleCreateRace() {
 	try {
 		const countdownTimer = Number(document.getElementById('big-numbers').innerText);
 		const theRace = await createRace(store.player_id, store.track_id);
-		store.race_id = theRace.ID;
+		store.race_id = theRace.ID - 1;
 		store.race = theRace;
 		// TODO - call the async function runCountdown DONE
-		runCountdown();
-		return theRace;
+		await runCountdown();
+		console.log('countdown ran');
+		
+		// return theRace;
 	} catch(error) {
 		console.log(`Error! Error! ${error}`);
 	}
-	
-
-	// TODO - call the async function startRace -RESUME FROM HERE
-	
+	console.log('starting the race...');
+	// TODO - call the async function startRace
+	await startRace(store.race_id);
 	// TODO - call the async function runRace
+	await runRace(store.race_id);
+	console.log('hello?');
+
 }
 
 function runRace(raceID) {
 	return new Promise(resolve => {
 	// TODO - use Javascript's built in setInterval method to get race info every 500ms
+	const raceInterval = setInterval(() => {
+	try {
+		fetch(`${SERVER}/api/races/${store.race_id}`)
+			.then(res => res.json())
+			// .then(res => console.log(res))
+			.then(res => {
+				/* 
+					DONE
+					TODO - if the race info status property is "in-progress", update the leaderboard by calling:
+					renderAt('#leaderBoard', raceProgress(res.positions))
+				*/
+				console.log(res.status);
+				
+				if (res.status === 'in-progress') {
+					console.log('race in progress!');
+					
+					renderAt('#leaderBoard', raceProgress(res.positions))
+				}
+				if (res.status === 'finished') {
+					console.log('race all done!');
+					
+					clearInterval(raceInterval) // to stop the interval from repeating
+					renderAt('#race', resultsView(res.positions)) // to render the results view
+					resolve(res) // resolve the promise
+					/* 
+					TODO - if the race info status property is "finished", run the following:
 
-	/* 
-		TODO - if the race info status property is "in-progress", update the leaderboard by calling:
-
-		renderAt('#leaderBoard', raceProgress(res.positions))
-	*/
-
-	/* 
-		TODO - if the race info status property is "finished", run the following:
-
-		clearInterval(raceInterval) // to stop the interval from repeating
-		renderAt('#race', resultsView(res.positions)) // to render the results view
-		resolve(res) // resolve the promise
-	*/
+					clearInterval(raceInterval) // to stop the interval from repeating
+					renderAt('#race', resultsView(res.positions)) // to render the results view
+					resolve(res) // resolve the promise
+					*/
+				}
+			})
+	} catch (error) {
+		console.log(`There was a problem here: ${error}`);
+	}
+	console.log('still going!');
+	
+}, 500);
+	
+	console.log('nothing happens here');
 	});
 	// remember to add error handling for the Promise
 }
@@ -150,12 +181,14 @@ async function runCountdown() {
 				} else {
 					clearInterval(tick);
 					bigNumbers.innerHTML = 'GO!';
+					resolve(true)
 				}
 			};
 			// run this DOM manipulation to decrement the countdown for the user
 			const tick = setInterval(tock, 1000); 
 			// TODO - if the countdown is done, clear the interval, resolve the promise, and return
 		});
+		
 	} catch(error) {
 		console.log(error);
 	}
@@ -163,7 +196,6 @@ async function runCountdown() {
 
 // JW This function makes the selected racer appear selected, and adds the racer to the store.
 function handleSelectPodRacer(target) {
-	console.log("selected a pod", target.id)
 
 	// JW remove class 'selected' from all racer options
 	const selected = document.querySelector('#racers .selected')
@@ -175,12 +207,11 @@ function handleSelectPodRacer(target) {
 	target.classList.add('selected');
 
 	// TODO - save the selected racer to the store 
-	store.player_id = target.id;
+	store.player_id = Number(target.id);
 }
 
 // JW this function makes the selected track appear selected, and adds track ID to the store.
 function handleSelectTrack(target) {
-	console.log("selected track", target.id);
 
 	// JW remove class 'selected' from all track options
 	const selected = document.querySelector('#tracks .selected');
@@ -192,12 +223,14 @@ function handleSelectTrack(target) {
 	target.classList.add('selected');
 
 	// TODO - save the selected track id to the store
-	store.track_id = target.id;
+	store.track_id = Number(target.id);
 }
 
 function handleAccelerate() {
-	console.log("accelerate button clicked");
 	// TODO - Invoke the API call to accelerate
+	accelerate(store.race_id)
+	
+
 }
 
 // HTML VIEWS ------------------------------------------------
@@ -227,10 +260,10 @@ function renderRacerCard(racer) {
 
 	return `
 		<li class="card podracer" id="${id}">
-			<h3>${driver_name}</h3>
-			<p>${top_speed}</p>
-			<p>${acceleration}</p>
-			<p>${handling}</p>
+			<h3>Driver: ${driver_name}</h3>
+			<p>Top Speed: ${top_speed}</p>
+			<p>Acceleration: ${acceleration}</p>
+			<p>Handling: ${handling}</p>
 		</li>
 	`;
 }
@@ -366,7 +399,6 @@ function defaultFetchOpts() {
 
 // DONE
 function getTracks() {
-	console.log('getTracks was called.');
 	try {
 		const trackData = fetch(`${SERVER}/api/tracks`)
 		.then(res => res.json());
@@ -379,7 +411,6 @@ function getTracks() {
 
 // DONE
 function getRacers() {
-	console.log('getRacers was called.');
 	try {
 		const racerData = fetch(`${SERVER}/api/cars`)
 			.then(res => res.json())
@@ -411,9 +442,8 @@ function getRace(id) {
 	try {
 		const race = fetch(`${SERVER}/api/races/${id}`)
 		.then(res => res.json())
-		.then(data => console.log(data));
 	} catch(error) {
-		console.log(error);
+		console.log(`There was a problem here: ${error}`);
 	}
 }
 
@@ -422,8 +452,11 @@ function startRace(id) {
 		method: 'POST',
 		...defaultFetchOpts(),
 	})
-	.then(res => res.json())
 	.catch(err => console.log("Problem with getRace request::", err))
+}
+
+function testRace(id) {
+	console.log(startRace(3));
 }
 
 function accelerate(id) {
@@ -431,7 +464,7 @@ function accelerate(id) {
 		method: 'POST',
 		...defaultFetchOpts(),
 	})
-	.then(res => res.json())
+	// .then(res => res.json())
 	.catch(err => console.log('The gas pedal is broken ', err));
 	// POST request to `${SERVER}/api/races/${id}/accelerate`
 	// options parameter provided as defaultFetchOpts
