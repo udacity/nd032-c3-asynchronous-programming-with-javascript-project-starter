@@ -2,6 +2,9 @@
 
 /* -------------------  MOBILE  --------------------- */
 
+header {
+    background-image: url('../images/worst-cars-ever-made.jpeg');
+}
 
 /* -------------------  TABLET  --------------------- */
 @media (min-width: 768px) {
