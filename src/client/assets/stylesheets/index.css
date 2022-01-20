@@ -16,12 +16,12 @@
 body {
   display: flex;
   flex-direction: column;
-  font-family: Arial;
+  font-family:'Courier New', Courier, monospace;
   min-height: 100vh;
 }
 
 header {
-  background-image: url('https://via.placeholder.com/1150');
+  background-image: url('../images/worst-cars-ever-made.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -60,7 +60,7 @@ h4 {
 
 p {
   color: black;
-  font-weight: normal;
+  font-weight: bold;
   font-size: 18px;
 }
 
@@ -78,6 +78,10 @@ p {
   display: block;
   text-align: center;
   text-decoration: none;
+}
+
+.stats {
+  font-weight: normal;
 }
 
 main {
