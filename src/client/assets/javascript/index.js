@@ -1,7 +1,7 @@
 // PROVIDED CODE BELOW (LINES 1 - 80) DO NOT REMOVE
 
 // The store will hold all information needed globally
-var store = {
+let store = {
 	track_id: undefined,
 	player_id: undefined,
 	race_id: undefined,
