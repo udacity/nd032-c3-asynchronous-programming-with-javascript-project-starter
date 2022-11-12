@@ -1,0 +1,45 @@
+/* PROGRESS PAGE SPECIFIC STYLES */
+
+/* -------------------  MOBILE  --------------------- */
+header {
+  background-image: url('https://via.placeholder.com/1150');
+}
+
+main#two-columns {
+    margin: 50px 0;
+    display: flex;
+}
+
+main#two-columns section {
+    max-width: 50vw;
+}
+
+section#accelerate button {
+    height: 300px;
+    width: 300px;
+    margin: 30px auto;
+    border-radius: 180%;
+    background-color: green;
+    border-color: rgb(14, 166, 6);
+    cursor: pointer;
+}
+
+#big-numbers {
+    font-weight: bolder;
+    font-size: 70px;
+}
+
+/* -------------------  TABLET  --------------------- */
+@media (min-width: 768px) {
+
+}
+
+/* -------------------  DESKTOP  -------------------- */
+
+@media (min-width: 1224px) {
+}
+
+/* -------------------  LARGE SCREENS  -------------- */
+
+@media (min-width: 1824px) {
+}

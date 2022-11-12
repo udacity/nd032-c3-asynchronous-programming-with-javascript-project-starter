@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Start Your Pod Racer Simulation</title>
+    <link rel="stylesheet" href="assets/stylesheets/reset.css">
+    <link rel="stylesheet" href="assets/stylesheets/index.css">
+    <link rel="stylesheet" href="assets/stylesheets/form.css">
+    <link rel="stylesheet" href="assets/stylesheets/create.css">
+    <link rel="stylesheet" href="assets/stylesheets/progress.css">
+    <link rel="stylesheet" href="assets/stylesheets/results.css">
+    <script src="/assets/javascript/index.js" charset="utf-8"></script>
+</head>
+
+<body id="race">
+    <header>
+        <h1>Start Your Pod Racer Sim</h1>
+    </header>
+    <main>
+        <section id="create-race">
+            <h2>Get Started</h2>
+            <h3>Create Your Race</h3>
+            <form id="create-race">
+                <h3>Choose your track</h3>
+                <ul class="cards-list" id="tracks">
+                    <!-- filled via js -->
+                </ul>
+                <label for="course" class="sr-only">Race Course:</label>
+                <select id="course" name="course" class="required sr-only">
+                    <option value="trackname" id="trackname">test</option>
+                </select>
+
+                <h3>Choose your racer</h3>
+                <ul class="cards-list" id="racers">
+                    <!-- filled via js -->
+                </ul>
+                <label for="podRacer" class="sr-only">Pod Racer:</label>
+                <select id="podRacer" name="podRacer" class="required sr-only">
+                    <option value="test5">test</option>
+                </select>
+                <button class="button" type="submit" id="submit-create-race">Start Race</button>
+            </form>
+        </section>
+    </main>
+    <footer></footer>
+</body>
+</html>

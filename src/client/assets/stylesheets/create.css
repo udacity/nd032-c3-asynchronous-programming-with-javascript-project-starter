@@ -1,0 +1,23 @@
+/* CREATE PAGE SPECIFIC STYLES */
+
+/* -------------------  MOBILE  --------------------- */
+
+header {
+  background-image: url('https://via.placeholder.com/1150');
+}
+
+
+/* -------------------  TABLET  --------------------- */
+@media (min-width: 768px) {
+
+}
+
+/* -------------------  DESKTOP  -------------------- */
+
+@media (min-width: 1224px) {
+}
+
+/* -------------------  LARGE SCREENS  -------------- */
+
+@media (min-width: 1824px) {
+}
